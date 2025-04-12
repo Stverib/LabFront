@@ -1,14 +1,14 @@
 <template>
   <div class="project-list">
-    <el-card 
-      v-for="project in projects" 
+    <el-card
+      v-for="project in projects"
       :key="project.name"
       class="project-card"
       :class="{ 'national': project.category === 'national' }"
     >
       <div class="card-header">
         <h3 class="title">{{ project.name }}</h3>
-        <el-tag 
+        <el-tag
           :type="project.status === '进行中' ? 'success' : 'info'"
           effect="plain"
         >
@@ -23,7 +23,7 @@
           <span>项目编号：{{ project.code }}</span>
           <span>资助金额：{{ project.budget }}</span>
         </div>
-        
+
         <div v-else class="enterprise-info">
           <el-icon><Partnership /></el-icon>
           <span>合作企业：{{ project.partner }}</span>
@@ -83,7 +83,7 @@ const getLinkIcon = (type) => {
     paper: Document,
     code: Link,
     patent: Star,
-    product: Partnership
+
   }
   return icons[type]
 }
@@ -164,4 +164,4 @@ const getLinkIcon = (type) => {
     }
   }
 }
-</style> 
+</style>

@@ -65,6 +65,7 @@ import {
 
 const activeMenu = ref('/')
 const navItems = ref([
+  { path: '/', title: '首页' },
   { path: '/people', title: '研究团队' },
   { path: '/publications', title: '科研成果' },
   { path: '/projects', title: '科研项目' },
