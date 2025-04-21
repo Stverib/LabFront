@@ -6,6 +6,7 @@ import PublicationsView from "@/views/PublicationsView.vue";
 import ProjectsView from "@/views/ProjectsView.vue";
 import testVue from "@/views/testVue.vue"
 import AnnouncementDetail from "@/views/AnnouncementDetail.vue";
+import NewsDetail from "@/views/NewsDetail.vue";
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
       {
         path: '/announcement/:id',
         component: AnnouncementDetail,
+        props: true
+      },
+      {
+        path: '/news/:id',
+        component: NewsDetail,
         props: true
       }
     ]

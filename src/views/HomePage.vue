@@ -48,15 +48,25 @@
 
         <!-- 右侧列 -->
         <el-col :span="8">
-          <el-card class="news-card">
+          <el-card class="card-item">
             <template #header>
               <div class="custom-header">
                 <span class="title">新闻动态</span>
                 <span class="sub-title">News</span>
               </div>
             </template>
-            <div v-for="item in reportData" :key="item.id" class="news-item">
-              {{ truncateContent(item.content, 19) }}
+            <div class="news-container">
+              <el-card
+                v-for="item in reportData"
+                :key="item.id"
+                class="news-card"
+                :style="{ background: getGradient(item.id) }"
+                @click="router.push(`/news/${item.id}`)"
+                >
+                <div class="news-content">
+                  {{ item.content }}
+                </div>
+              </el-card>
             </div>
           </el-card>
         </el-col>
@@ -71,6 +81,8 @@ import { ref } from 'vue'
 import {announcements} from "@/data/announcements.js";
 import {reports} from "@/data/reports.js";
 import {activities} from "@/data/activities.js";
+import {useRouter} from "vue-router";
+const router = useRouter()
 // 响应式报道数据
 const reportData = ref(reports)
 const announcement = ref(announcements)
@@ -108,6 +120,16 @@ const truncateContent = (text, maxLength) => {
     period: '2018年12月至2020年12月，主持'
   }
 ])*/
+
+// 在script setup中添加渐变生成方法
+const getGradient = (id) => {
+  const hue = (id * 30) % 360;
+  return `linear-gradient(
+    135deg,
+    hsla(${hue}, 70%, 85%, 0.2),
+    hsla(${hue + 20}, 70%, 75%, 0.15)
+  ), rgba(255, 255, 255, 0.8)`;
+};
 </script>
 
 <style scoped>
@@ -227,14 +249,32 @@ const truncateContent = (text, maxLength) => {
     }
   }
 
+  .news-container {
+    display: grid;
+    gap: 16px;
+  }
+
   .news-card {
-    .news-item {
-      padding: 12px 0;
-      border-bottom: 1px solid #ebeef5;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    border: none !important;
+    backdrop-filter: blur(10px);
+    border-radius: 12px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
     }
+
+    :deep(.el-card__body) {
+      padding: 20px;
+    }
+  }
+
+  .news-content {
+    font-size: 1rem;
+    color: #2d3748;
+    line-height: 1.5;
+    font-weight: 500;
   }
 }
 </style>
