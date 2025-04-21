@@ -12,7 +12,7 @@
         <el-col :span="4">
           <div class="brand">
             <img
-              src="@/assets/logo.png"
+              src="@/assets/images/LZU.png"
               alt="实验室Logo"
               class="logo"
             />
@@ -132,16 +132,16 @@ const navItems = ref([
       display: flex;
       align-items: center;
       gap: 12px;
-      height: 60px;
+      height: auto;
 
       .logo {
-        width: 40px;
-        height: 40px;
+        width: 100px;
+        height: 100px;
       }
 
       .lab-titles {
         .cn-name {
-          margin: 0;
+          margin-bottom: 10px;
           font-size: 1.4rem;
           white-space: nowrap;
           color: #000000 !important;
