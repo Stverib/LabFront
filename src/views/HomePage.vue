@@ -1,82 +1,213 @@
 <template>
-  <div class="home-page">
-    <!-- 实验室简介 -->
-    <el-card class="intro-card">
-      <h2>欢迎来到智能计算实验室</h2>
-      <p>我们致力于人工智能前沿技术研究，聚焦自然语言处理与计算机视觉...</p>
-    </el-card>
+  <div>
+    <!-- 图片 -->
+    <div>
+      <img src="../assets/images/hezhao.jpg" alt="合照"
+           style="width: 100%; height: 600px; object-fit: cover;"/>
+    </div>
 
-    <!-- 研究方向大框 -->
-    <el-card class="section-box">
-      <template #header>
-        <div class="section-title">研究方向</div>
-      </template>
+    <!-- 信息展示区 -->
+    <div class="info-container">
       <el-row :gutter="20">
-        <el-col 
-          v-for="(area, index) in researchAreas" 
-          :key="index" 
-          :xs="24" 
-          :sm="12" 
-          :md="8" 
-          :lg="6"
-        >
-          <div class="text-card">
-            <h3 class="research-title">{{ area.title }}</h3>
-            <el-divider />
-            <p class="research-desc">{{ area.description }}</p>
-          </div>
+        <!-- 左侧列 -->
+        <el-col :span="16">
+          <el-card class="card-item">
+            <template #header>
+              <div class="custom-header">
+                <span class="title">通知公告</span>
+                <span class="sub-title">Notice</span>
+                <el-button type="primary" link class="more-btn">更多</el-button>
+              </div>
+            </template>
+            <div v-for="item in announcement" :key="item.id" class="announcement-item">
+              <div class="date-box">{{ item.date }}</div>
+              <div class="content">{{ truncateContent(item.content, 30) }}</div>
+            </div>
+          </el-card>
+
+          <el-card class="card-item">
+            <template #header>
+              <div class="custom-header">
+                <span class="title">学术活动</span>
+                <span class="sub-title">Academic Activity</span>
+                <el-button type="primary" link class="more-btn">更多</el-button>
+              </div>
+            </template>
+            <div v-for="item in AcademicActivities" :key="item.id" class="activity-item">
+              <div class="content">{{ truncateContent(item.content, 30) }}</div>
+              <div class="date">{{ item.date }}</div>
+            </div>
+          </el-card>
+        </el-col>
+
+        <!-- 右侧列 -->
+        <el-col :span="8">
+          <el-card class="news-card">
+            <template #header>
+              <div class="custom-header">
+                <span class="title">新闻动态</span>
+                <span class="sub-title">News</span>
+              </div>
+            </template>
+            <div v-for="item in reportData" :key="item.id" class="news-item">
+              {{ truncateContent(item.content, 19) }}
+            </div>
+          </el-card>
         </el-col>
       </el-row>
-    </el-card>
+    </div>
 
-    <!-- 研究成果大框 -->
-    <el-card class="section-box">
-      <template #header>
-        <div class="section-title">研究成果</div>
-      </template>
-      <div class="achievement-list">
-        <div 
-          v-for="(item, index) in achievements" 
-          :key="index" 
-          class="achievement-item"
-        >
-          <div class="achievement-index">{{ index + 1 }}.</div>
-          <div class="achievement-content">
-            <p class="achievement-title">{{ item.title }}</p>
-            <p class="achievement-detail">{{ item.detail }}</p>
-            <p class="achievement-period">{{ item.period }}</p>
-          </div>
-        </div>
-      </div>
-    </el-card>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
-const researchAreas = ref([
+// 响应式报道数据
+const reportData = ref([
   {
-    title: '算力技术',
-    image: 'https://q5.itc.cn/q_70/images03/20240227/61078131381245279ffd956a04b8d254.jpeg',
-    description: '分布式计算架构与加速芯片研究，提升AI算力效率'
+    id: 1,
+    media: '文博网',
+    date: '2023.7.12',
+    content: '着力推动文旅产业数字化建设加快发展',
+    link: 'https://www.srdice.net/?m=home&c=View&a=index&aid=3259'
   },
   {
-    title: '大模型',
-    image: 'https://n.sinaimg.cn/sinakd20240621s/67/w1000h667/20240621/df0b-d564ddfca5043a99981e578e2817dbd0.png',
-    description: '百亿参数级模型训练与垂直领域应用研究'
+    id: 2,
+    media: '澎湃新闻',
+    date: '2023.6.27',
+    content: '“缘起丝路”敦煌疏勒河古道徒步活动在香港启动',
+    link: 'https://www.thepaper.cn/newsDetail_forward_23635925'
   },
   {
-    title: '图像识别',
-    image: 'https://img0.baidu.com/it/u=407960834,441505028&fm=253&fmt=auto&app=120&f=JPEG?w=837&h=500',
-    description: '多模态视觉理解与工业级检测算法研发'
+    id: 3,
+    media: '中华人民共和国文化和旅游部',
+    date: '2023.5.18',
+    content: '甘肃省文化和旅游厅打造"一平台、一中心、三体系、三朵云"促进文旅与科技深度融合',
+    link: 'https://www.mct.gov.cn/whzx/qgwhxxlb/gs/202305/t20230518_943844.htm'
   },
   {
-    title: '大数据分析',
-    image: 'https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2025%2F0317%2F17ce6d71j00st9uyg00j6d000ss00g8m.jpg&thumbnail=660x2147483647&quality=80&type=jpg',
-    description: '海量数据挖掘与实时计算平台构建'
+    id: 4,
+    media: '微游甘肃',
+    date: '2023.5.13',
+    content: '甘肃省文旅厅与中文在线座谈对接工作',
+    link: 'https://mp.weixin.qq.com/s/UHSh1CK7li5nsjFYaJJ4Ow'
+  },
+  {
+    id: 5,
+    media: '中国甘肃网',
+    date: '2023.4.28',
+    content: '【甘快看】为甘肃文旅产业提质增效转型升级提供"数字动能"',
+    link: 'http://gansu.gscn.com.cn/system/2023/04/28/012950817.shtml'
+  },
+  {
+    id: 6,
+    media: '', // 空值处理
+    date: '2023.4.28',
+    content: '为甘肃文旅产业高质量发展提供数字动能——省文旅厅与10个网络平台签订合作协议',
+    link: 'https://www.gswbj.gov.cn/a/2023/04/28/17107.html'
+  },
+  {
+    id: 7,
+    media: '微游甘肃',
+    date: '2023.3.17',
+    content: '国家信息中心调研甘肃数字文旅建设工作',
+    link: 'https://mp.weixin.qq.com/s/eFBcwY4TEVK5VqJ-x7HDaQ'
+  },
+  {
+    id: 8,
+    media: '', // 空值处理
+    date: '2023.3.16',
+    content: '甘肃省文旅厅与支付宝座谈对接工作',
+    link: 'https://mp.weixin.qq.com/s/Rh-mna59Wsmnu3PuLoBjYQ'
+  },
+  {
+    id: 9,
+    media: '中华人民共和国文化和旅游部',
+    date: '2023.3.1',
+    content: '中国旅游研究院重大项目课题组到甘肃调研',
+    link: 'https://www.mct.gov.cn/whzx/qgwhxxlb/gs/202303/t20230301_939431.htm'
+  },
+  {
+    id: 10,
+    media: '甘肃省文化和旅游厅',
+    date: '2023.2.8',
+    content: '甘肃省文旅厅与同程旅行座谈对接工作',
+    link: 'https://mp.weixin.qq.com/s/pkyvhtGgEnEudOqtdVRVAA'
   }
 ])
+const announcement = ref([
+  {
+    id: 1,
+    date: "2023.10.16",
+    content: "关于举办全国旅游标准化技术委员会业务工作培训班的通知",
+  },
+  {
+    id: 2,
+    date: "2023.5.18",
+    content: "甘肃省实施标准化发展战略领导小组办公室关于报送“十四五”以来标准化工作总结和下一步工作计划的通知",
+  },
+  {
+    id: 3,
+    date: "2023.4.25",
+    content: "全国旅游标准化技术委员会关于征集2023年旅游业国家标准、行业标准制修订计划项目的公告",
+  },
+  {
+    id: 4,
+    date: "2022.9.17",
+    content: "关于同意引进王建州的通知",
+  },
+  {
+    id: 5,
+    date: "2022.4.12",
+    content: "关于协助做好数字藏品专区建立工作的通知",
+  },
+  {
+    id: 6,
+    date: "2022.3.10",
+    content: "关于召开甘肃省文化和旅游标准化技术委员会成立大会暨标委会第一次会议的通知",
+  },
+  {
+    id: 7,
+    date: "2021.8.2",
+    content: "甘肃省市场监督管理局关于批准筹建甘肃省文化旅游标准化技术委员会的通知",
+  },
+])
+const AcademicActivities = ref([
+  {
+    id: 1,
+    date: "2024.10.18",
+    content: "人工智能与算力技术重点实验室交流座谈",
+  },
+  {
+    id: 2,
+    date: "2023.10.27",
+    content: "甘肃东数西算与人工智能产业发展研讨会暨燧弘探索算力运营合作研讨会",
+  },
+  {
+    id: 3,
+    date: "2023.10.24",
+    content: "飞云大讲堂",
+  },
+  {
+    id: 4,
+    date: "2023.8.6",
+    content: "算力技术大会",
+  },
+  {
+    id: 5,
+    date: "2023.8.7",
+    content: "中国教育科研网格ChinaGrid二十周年研讨会",
+  },
+  {
+    id: 6,
+    date: "2023.2.27",
+    content: "科技创新2030“新一代人工智能”重大项目课题座谈会",
+  },
+]);
+
+const truncateContent = (text, maxLength) => {
+  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+};
 
 // 新增研究成果数据
 const achievements = ref([
@@ -163,5 +294,76 @@ const achievements = ref([
   color: #718096;
   font-size: 13px;
   margin-top: 8px;
+}
+.info-container {
+  width: 100%;
+  margin-top: 40px;
+
+
+  .card-item {
+    margin-bottom: 20px;
+  }
+
+  .custom-header {
+    display: flex;
+    align-items: center;
+
+    .title {
+      font-weight: bold;
+      margin-right: 10px;
+      font-size: x-large;
+    }
+
+    .sub-title {
+      color: #909399;
+      font-size: 0.8em;
+    }
+
+    .more-btn {
+      margin-left: auto;
+      padding: 0;
+      width: 50px;
+    }
+  }
+
+  .announcement-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #ebeef5;
+
+    .date-box {
+      background: #f0f2f5;
+      color: #409eff;
+      padding: 6px 12px;
+      border-radius: 16px;
+      margin-right: 15px;
+      min-width: 80px;
+      text-align: center;
+    }
+  }
+
+  .activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #ebeef5;
+
+    .date {
+      color: #909399;
+      font-size: 0.9em;
+    }
+  }
+
+  .news-card {
+    .news-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #ebeef5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 </style>
