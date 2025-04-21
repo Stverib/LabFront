@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/Home.vue'
+import HomeView from '@/views/HomeVue.vue'
 import HomePage from "@/views/HomePage.vue";
 import PeopleView from "@/views/PeopleView.vue";
 import PublicationsView from "@/views/PublicationsView.vue";
@@ -45,6 +45,11 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+// main.js 或 router/index.js
+router.beforeEach((to, from) => {
+  console.log('[路由跳转]', from.path, '=>', to.path)
 })
 
 export default router

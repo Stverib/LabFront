@@ -22,8 +22,8 @@
             <div v-for="item in announcement" :key="item.id" class="announcement-item">
               <div class="date-box">{{ item.date }}</div>
               <el-link
-                router
                 type="default"
+                :href="`/announcement/${item.id}`"
                 :to="`/announcement/${item.id}`"
                 class="content">
                 {{ truncateContent(item.title, 50) }}
@@ -69,119 +69,19 @@
 <script setup>
 import { ref } from 'vue'
 import {announcements} from "@/data/announcements.js";
+import {reports} from "@/data/reports.js";
+import {activities} from "@/data/activities.js";
 // 响应式报道数据
-const reportData = ref([
-  {
-    id: 1,
-    media: '文博网',
-    date: '2023.7.12',
-    content: '着力推动文旅产业数字化建设加快发展',
-    link: 'https://www.srdice.net/?m=home&c=View&a=index&aid=3259'
-  },
-  {
-    id: 2,
-    media: '澎湃新闻',
-    date: '2023.6.27',
-    content: '“缘起丝路”敦煌疏勒河古道徒步活动在香港启动',
-    link: 'https://www.thepaper.cn/newsDetail_forward_23635925'
-  },
-  {
-    id: 3,
-    media: '中华人民共和国文化和旅游部',
-    date: '2023.5.18',
-    content: '甘肃省文化和旅游厅打造"一平台、一中心、三体系、三朵云"促进文旅与科技深度融合',
-    link: 'https://www.mct.gov.cn/whzx/qgwhxxlb/gs/202305/t20230518_943844.htm'
-  },
-  {
-    id: 4,
-    media: '微游甘肃',
-    date: '2023.5.13',
-    content: '甘肃省文旅厅与中文在线座谈对接工作',
-    link: 'https://mp.weixin.qq.com/s/UHSh1CK7li5nsjFYaJJ4Ow'
-  },
-  {
-    id: 5,
-    media: '中国甘肃网',
-    date: '2023.4.28',
-    content: '【甘快看】为甘肃文旅产业提质增效转型升级提供"数字动能"',
-    link: 'http://gansu.gscn.com.cn/system/2023/04/28/012950817.shtml'
-  },
-  {
-    id: 6,
-    media: '', // 空值处理
-    date: '2023.4.28',
-    content: '为甘肃文旅产业高质量发展提供数字动能——省文旅厅与10个网络平台签订合作协议',
-    link: 'https://www.gswbj.gov.cn/a/2023/04/28/17107.html'
-  },
-  {
-    id: 7,
-    media: '微游甘肃',
-    date: '2023.3.17',
-    content: '国家信息中心调研甘肃数字文旅建设工作',
-    link: 'https://mp.weixin.qq.com/s/eFBcwY4TEVK5VqJ-x7HDaQ'
-  },
-  {
-    id: 8,
-    media: '', // 空值处理
-    date: '2023.3.16',
-    content: '甘肃省文旅厅与支付宝座谈对接工作',
-    link: 'https://mp.weixin.qq.com/s/Rh-mna59Wsmnu3PuLoBjYQ'
-  },
-  {
-    id: 9,
-    media: '中华人民共和国文化和旅游部',
-    date: '2023.3.1',
-    content: '中国旅游研究院重大项目课题组到甘肃调研',
-    link: 'https://www.mct.gov.cn/whzx/qgwhxxlb/gs/202303/t20230301_939431.htm'
-  },
-  {
-    id: 10,
-    media: '甘肃省文化和旅游厅',
-    date: '2023.2.8',
-    content: '甘肃省文旅厅与同程旅行座谈对接工作',
-    link: 'https://mp.weixin.qq.com/s/pkyvhtGgEnEudOqtdVRVAA'
-  }
-])
+const reportData = ref(reports)
 const announcement = ref(announcements)
-const AcademicActivities = ref([
-  {
-    id: 1,
-    date: "2024.10.18",
-    content: "人工智能与算力技术重点实验室交流座谈",
-  },
-  {
-    id: 2,
-    date: "2023.10.27",
-    content: "甘肃东数西算与人工智能产业发展研讨会暨燧弘探索算力运营合作研讨会",
-  },
-  {
-    id: 3,
-    date: "2023.10.24",
-    content: "飞云大讲堂",
-  },
-  {
-    id: 4,
-    date: "2023.8.6",
-    content: "算力技术大会",
-  },
-  {
-    id: 5,
-    date: "2023.8.7",
-    content: "中国教育科研网格ChinaGrid二十周年研讨会",
-  },
-  {
-    id: 6,
-    date: "2023.2.27",
-    content: "科技创新2030“新一代人工智能”重大项目课题座谈会",
-  },
-]);
+const AcademicActivities = ref(activities);
 
 const truncateContent = (text, maxLength) => {
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 };
 
 // 新增研究成果数据
-const achievements = ref([
+/*const achievements = ref([
   {
     title: '国家科技部，科技创新2030-“新一代人工智能”重大项目',
     detail: '2021ZD0111405，面向节假日城市旅游客流调控和智能服务的应用示范',
@@ -207,7 +107,7 @@ const achievements = ref([
     detail: '大数据背景下个人隐私保护研究团队建设项目',
     period: '2018年12月至2020年12月，主持'
   }
-])
+])*/
 </script>
 
 <style scoped>
