@@ -63,21 +63,9 @@
     <!-- 页脚 -->
     <el-footer class="main-footer">
       <div class="footer-content">
-        <div class="contact-info">
-          <h3>联系我们</h3>
-          <p>地址：兰州市城关区天水南路222号</p>
-          <p>邮箱：luliu0701@outlook.com</p>
-        </div>
-        <div class="social-links">
-          <el-icon>
-            <Link/>
-          </el-icon>
-          <el-icon>
-            <ChatDotRound/>
-          </el-icon>
-          <el-icon>
-            <DocumentCopy/>
-          </el-icon>
+        <div class="copyright-info">
+          <p>电话：0931-8912778       地址：兰州市城关区天水南路222号       邮编：730000</p>
+          <p>copyright@2015 兰州大学信息科学与工程学院 All rights reserved</p>
         </div>
       </div>
     </el-footer>
@@ -87,11 +75,11 @@
 <script setup>
 import {ref} from 'vue'
 import {useRoute} from 'vue-router'
-import {
-  Link,
-  ChatDotRound,
-  DocumentCopy
-} from '@element-plus/icons-vue'
+// import {
+//   Link,
+//   ChatDotRound,
+//   DocumentCopy
+// } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const activeMenu = ref(route.path)
@@ -227,29 +215,25 @@ const navItems = ref([
   }
 
   .main-footer {
-    background: #f8f9fa;
+    background: #2d3a4b !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    height: auto;
+  }
 
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  .copyright-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.6;
+    font-size: 14px;
 
-      .social-links {
-        display: flex;
-        gap: 1.5rem;
-
-        .el-icon {
-          cursor: pointer;
-          transition: color 0.3s;
-
-          &:hover {
-            color: var(--el-color-primary);
-          }
-        }
-      }
+    p:first-child {
+      margin-bottom: 8px;
     }
+  }
+
+  .contact-info, .social-links {
+    display: none;
   }
 }
 

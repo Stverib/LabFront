@@ -60,6 +60,7 @@
                 v-for="item in reportData"
                 :key="item.id"
                 class="news-card"
+                shadow="hover"
                 :style="{ background: getGradient(item.id) }"
                 @click="router.push(`/news/${item.id}`)"
                 >
