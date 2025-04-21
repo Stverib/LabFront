@@ -40,8 +40,13 @@
               </div>
             </template>
             <div v-for="item in AcademicActivities" :key="item.id" class="activity-item">
-              <div class="content">{{ truncateContent(item.content, 30) }}</div>
-              <div class="date">{{ item.date }}</div>
+              <el-link
+                type="info"
+                class="content-link"
+                @click.prevent="router.push(`/AcademicActivity/${item.id}`)">
+                <div class="content">{{ truncateContent(item.content, 50) }}</div>
+                <div class="date">{{ item.date }}</div>
+              </el-link>
             </div>
           </el-card>
         </el-col>
@@ -96,12 +101,12 @@ const truncateContent = (text, maxLength) => {
 // 新增研究成果数据
 /*const achievements = ref([
   {
-    title: '国家科技部，科技创新2030-“新一代人工智能”重大项目',
+    title: '国家科技部，科技创新2030-"新一代人工智能"重大项目',
     detail: '2021ZD0111405，面向节假日城市旅游客流调控和智能服务的应用示范',
     period: '2021年12月至2024年11月，主持'
   },
   {
-    title: '国家科技部，国家重点研发计划“数据科学的若干基础理论”',
+    title: '国家科技部，国家重点研发计划"数据科学的若干基础理论"',
     detail: '2018YFB1003205，大数据权属保护理论与方法',
     period: '2018-05至2021-04，主持'
   },
@@ -238,15 +243,9 @@ const getGradient = (id) => {
   }
 
   .activity-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
     border-bottom: 1px solid #ebeef5;
-
-    .date {
-      color: #909399;
-      font-size: 0.9em;
+    &:last-child {
+      border-bottom: none;
     }
   }
 
@@ -276,6 +275,30 @@ const getGradient = (id) => {
     color: #2d3748;
     line-height: 1.5;
     font-weight: 500;
+  }
+}
+
+/* 新增链接样式 */
+.content-link {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  color: inherit !important;
+  padding: 12px 15px;
+  border-radius: 8px;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #f5f7fa;
+    text-decoration: none !important;
+  }
+
+  :deep(.el-link__inner) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>

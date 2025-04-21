@@ -65,7 +65,7 @@
       <div class="footer-content">
         <div class="copyright-info">
           <p>电话：0931-8912778       地址：兰州市城关区天水南路222号       邮编：730000</p>
-          <p>copyright@2015 兰州大学信息科学与工程学院 All rights reserved</p>
+          <p>copyright@2025 兰州大学信息科学与工程学院 All rights reserved</p>
         </div>
       </div>
     </el-footer>
@@ -98,6 +98,7 @@ const navItems = ref([
 .lab-website-container {
   min-height: 100vh;
   display: flex;
+  width: 100%;
   flex-direction: column;
 
   .main-header {
