@@ -5,6 +5,7 @@ import PeopleView from "@/views/PeopleView.vue";
 import PublicationsView from "@/views/PublicationsView.vue";
 import ProjectsView from "@/views/ProjectsView.vue";
 import testVue from "@/views/testVue.vue"
+import AnnouncementDetail from "@/views/AnnouncementDetail.vue";
 
 const routes = [
   {
@@ -30,14 +31,15 @@ const routes = [
       {
         path: '/test',
         component: testVue
+      },
+      {
+        path: '/announcement/:id',
+        component: AnnouncementDetail,
+        props: true
       }
     ]
   },
-  {
-    path: '/people',
-    name: 'people',
-    component: PeopleView
-  },
+
 ]
 
 const router = createRouter({

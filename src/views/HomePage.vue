@@ -21,7 +21,13 @@
             </template>
             <div v-for="item in announcement" :key="item.id" class="announcement-item">
               <div class="date-box">{{ item.date }}</div>
-              <div class="content">{{ truncateContent(item.content, 30) }}</div>
+              <el-link
+                router
+                type="default"
+                :to="`/announcement/${item.id}`"
+                class="content">
+                {{ truncateContent(item.title, 50) }}
+              </el-link>
             </div>
           </el-card>
 
@@ -62,6 +68,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import {announcements} from "@/data/announcements.js";
 // 响应式报道数据
 const reportData = ref([
   {
@@ -135,43 +142,7 @@ const reportData = ref([
     link: 'https://mp.weixin.qq.com/s/pkyvhtGgEnEudOqtdVRVAA'
   }
 ])
-const announcement = ref([
-  {
-    id: 1,
-    date: "2023.10.16",
-    content: "关于举办全国旅游标准化技术委员会业务工作培训班的通知",
-  },
-  {
-    id: 2,
-    date: "2023.5.18",
-    content: "甘肃省实施标准化发展战略领导小组办公室关于报送“十四五”以来标准化工作总结和下一步工作计划的通知",
-  },
-  {
-    id: 3,
-    date: "2023.4.25",
-    content: "全国旅游标准化技术委员会关于征集2023年旅游业国家标准、行业标准制修订计划项目的公告",
-  },
-  {
-    id: 4,
-    date: "2022.9.17",
-    content: "关于同意引进王建州的通知",
-  },
-  {
-    id: 5,
-    date: "2022.4.12",
-    content: "关于协助做好数字藏品专区建立工作的通知",
-  },
-  {
-    id: 6,
-    date: "2022.3.10",
-    content: "关于召开甘肃省文化和旅游标准化技术委员会成立大会暨标委会第一次会议的通知",
-  },
-  {
-    id: 7,
-    date: "2021.8.2",
-    content: "甘肃省市场监督管理局关于批准筹建甘肃省文化旅游标准化技术委员会的通知",
-  },
-])
+const announcement = ref(announcements)
 const AcademicActivities = ref([
   {
     id: 1,
