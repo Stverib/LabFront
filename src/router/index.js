@@ -10,6 +10,7 @@ import NewsDetail from "@/views/NewsDetail.vue";
 import ActivityDetail from "@/views/AcademicActivityDetail.vue";
 import CulturalTourismLab from "@/views/CulturalTourismLab.vue";
 import AICComputingLab from "@/views/AICComputingLab.vue";
+import StandardizationCommittee from "@/views/StandardizationCommittee.vue";
 
 const routes = [
   {
@@ -58,6 +59,10 @@ const routes = [
       {
         path: '/lab-structure/ai-computing',
         component: AICComputingLab,
+      },
+      {
+        path: '/committee',
+        component: StandardizationCommittee
       }
     ]
   },

@@ -119,7 +119,7 @@ const handleSelect = (index) => {
   flex-direction: column;
 
   .main-header {
-    background: #ffffff !important;
+    background: #fffffe !important;
     border-bottom: 1px solid #e4e7ed;
     color: white;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);

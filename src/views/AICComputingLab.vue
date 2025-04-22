@@ -1,5 +1,14 @@
 <template>
   <div class="lab-detail-container">
+    <!-- 新增图片 -->
+    <div class="header-image">
+      <img
+        src="@/assets/images/AICLab.png"
+        alt="实验室图片"
+        class="lab-header-img"
+      >
+    </div>
+
     <!-- 标题行 -->
     <el-row justify="space-between" align="middle" class="title-row">
       <el-col :span="12">
@@ -244,5 +253,32 @@
 .sub-list li {
   color: #4a5568;
   line-height: 1.6;
+}
+
+/* 新增图片样式 */
+.header-image {
+  margin-bottom: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lab-header-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 550px;
+
+}
+
+@media (max-width: 768px) {
+  .header-image {
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+
+  .lab-header-img {
+    max-height: 200px;
+  }
 }
 </style>
