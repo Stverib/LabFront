@@ -59,7 +59,12 @@
                 <el-menu-item index="/org-structure/platform-equipment">平台仪器</el-menu-item>
               </el-sub-menu>
 
-              <el-menu-item index="/people">团队成员</el-menu-item>
+              <el-sub-menu index="people">
+                <template #title>团队成员</template>
+                <el-menu-item index="/people/teacher">教师队伍</el-menu-item>
+                <el-menu-item index="/people/student">学生队伍</el-menu-item>
+              </el-sub-menu>
+
               <el-menu-item index="/projects">项目研究</el-menu-item>
             </el-menu>
           </el-col>
@@ -93,22 +98,9 @@
 <script setup>
 import {ref} from 'vue'
 import {useRoute} from 'vue-router'
-// import {
-//   Link,
-//   ChatDotRound,
-//   DocumentCopy
-// } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const activeMenu = ref(route.path)
-
-/*const navItems = ref([
-  {path: '/', title: '首页'},
-  {path: '/#', title: '实验室介绍'},
-  {path: '/#', title: '机构设置'},
-  {path: '/people', title: '团队成员'},
-  {path: '/projects', title: '项目研究'},
-])*/
 
 const handleSelect = (index) => {
   activeMenu.value = index
@@ -133,7 +125,7 @@ const handleSelect = (index) => {
     height: auto !important;
 
     .header-content {
-      width: auto;
+      width: 100%;
       margin-top: 0;
       margin-bottom: 10px;
       padding: 0 20px;

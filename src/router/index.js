@@ -19,6 +19,8 @@ import LabStructure from "@/views/LabStructureIntro/LabStructure.vue";
 import PlatformEquipment from "@/views/LabStructureIntro/PlatformEquipment.vue";
 import PlatformInfo from "@/views/LabStructureIntro/PlatformInfo.vue";
 import EquipmentInfo from "@/views/LabStructureIntro/EquipmentInfo.vue";
+import StudentInfo from "@/views/TeamMember/StudentInfo.vue";
+import TeacherInfo from "@/views/TeamMember/TeacherInfo.vue";
 
 const routes = [
   {
@@ -103,6 +105,14 @@ const routes = [
       {
         path: '/PlatformEquipment/EquipmentInfo',
         component: EquipmentInfo
+      },
+      {
+        path: '/people/teacher',
+        component: TeacherInfo
+      },
+      {
+        path: '/people/student',
+        component: StudentInfo
       }
     ]
   },
