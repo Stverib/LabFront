@@ -11,6 +11,7 @@ import ActivityDetail from "@/views/AcademicActivityDetail.vue";
 import CulturalTourismLab from "@/views/CulturalTourismLab.vue";
 import AICComputingLab from "@/views/AICComputingLab.vue";
 import StandardizationCommittee from "@/views/StandardizationCommittee.vue";
+import AIExplorerAlliance from "@/views/AIExplorerAlliance.vue";
 
 const routes = [
   {
@@ -63,6 +64,10 @@ const routes = [
       {
         path: '/committee',
         component: StandardizationCommittee
+      },
+      {
+        path: '/ai-club',
+        component: AIExplorerAlliance
       }
     ]
   },
