@@ -1,20 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeVue.vue'
-import HomePage from "@/views/HomePage.vue";
+import HomeView from '@/views/HomePage/HomeVue.vue'
+import HomePage from "@/views/HomePage/HomePage.vue";
 import PeopleView from "@/views/PeopleView.vue";
 import PublicationsView from "@/views/PublicationsView.vue";
 import ProjectsView from "@/views/ProjectsView.vue";
 import testVue from "@/views/testVue.vue"
-import AnnouncementDetail from "@/views/AnnouncementDetail.vue";
-import NewsDetail from "@/views/NewsDetail.vue";
-import ActivityDetail from "@/views/AcademicActivityDetail.vue";
-import CulturalTourismLab from "@/views/CulturalTourismLab.vue";
-import AICComputingLab from "@/views/AICComputingLab.vue";
-import StandardizationCommittee from "@/views/StandardizationCommittee.vue";
-import AIExplorerAlliance from "@/views/AIExplorerAlliance.vue";
-import AcademicCommittee from '@/views/AcademicCommittee.vue';
-import CurrentLeaders from "@/views/CurrentLeaders.vue";
-import ContactUs from "@/views/ContactUs.vue";
+import AnnouncementDetail from "@/views/HomePage/AnnouncementDetail.vue";
+import NewsDetail from "@/views/HomePage/NewsDetail.vue";
+import ActivityDetail from "@/views/HomePage/AcademicActivityDetail.vue";
+import CulturalTourismLab from "@/views/LabIntro/CulturalTourismLab.vue";
+import AICComputingLab from "@/views/LabIntro/AICComputingLab.vue";
+import StandardizationCommittee from "@/views/LabIntro/StandardizationCommittee.vue";
+import AIExplorerAlliance from "@/views/LabIntro/AIExplorerAlliance.vue";
+import AcademicCommittee from '@/views/LabIntro/AcademicCommittee.vue';
+import CurrentLeaders from "@/views/LabIntro/CurrentLeaders.vue";
+import ContactUs from "@/views/LabIntro/ContactUs.vue";
+import LabStructure from "@/views/LabStructureIntro/LabStructure.vue";
+import PlatformEquipment from "@/views/LabStructureIntro/PlatformEquipment.vue";
+import PlatformInfo from "@/views/LabStructureIntro/PlatformInfo.vue";
+import EquipmentInfo from "@/views/LabStructureIntro/EquipmentInfo.vue";
 
 const routes = [
   {
@@ -83,6 +87,22 @@ const routes = [
       {
         path: '/contact',
         component: ContactUs
+      },
+      {
+        path: '/org-structure/lab-structure',
+        component: LabStructure
+      },
+      {
+        path: '/org-structure/platform-equipment',
+        component: PlatformEquipment
+      },
+      {
+        path: '/PlatformEquipment/PlatformInfo',
+        component: PlatformInfo
+      },
+      {
+        path: '/PlatformEquipment/EquipmentInfo',
+        component: EquipmentInfo
       }
     ]
   },
