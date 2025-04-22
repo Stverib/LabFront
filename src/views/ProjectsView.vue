@@ -20,25 +20,27 @@
     <div class="project-list">
       <el-card
         v-for="project in filteredProjects(activeCategory)"
-        :key="project.code"
+        :key="project.id"
         class="project-item"
       >
         <div class="project-header">
-          <h3 class="project-title">{{ project.name }}</h3>
+          <h3 class="project-title">{{ project.description }}</h3>
           <el-tag :type="getStatusType(project.status)" effect="dark" class="status-tag">
-            {{ project.status }}
+            {{ project.status === 'completed' ? '已完成' : '进行中' }}
           </el-tag>
         </div>
 
         <div class="project-meta">
-          <div>项目编号：{{ project.code }}</div>
-          <div>起止时间：{{ project.period }}</div>
-          <div>项目经费：{{ project.budget || '' }}</div>
+          <div class="meta-row">
+            <div class="meta-item"><el-icon><Document /></el-icon> 项目名称：{{ project.projectName }}</div>
+            <div class="meta-item" v-if="project.projectNumber"><el-icon><Ticket /></el-icon> 项目编号：{{ project.projectNumber }}</div>
+            <div class="meta-item"><el-icon><OfficeBuilding /></el-icon> 主管部门：{{ project.department }}</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><el-icon><Calendar /></el-icon> 起止时间：{{ project.startTime }} ~ {{ project.endTime }}</div>
+            <div class="meta-item"><el-icon><User /></el-icon> 角色：{{ project.role }}</div>
+          </div>
         </div>
-
-        <el-divider/>
-
-        <div class="project-description">{{ project.description }}</div>
       </el-card>
     </div>
   </div>
@@ -46,6 +48,7 @@
 
 <script setup>
 import {ref} from 'vue'
+import { Document, Ticket, Calendar, OfficeBuilding, User } from '@element-plus/icons-vue'
 
 // 项目
 const projects = ref([
@@ -521,10 +524,11 @@ const newProjectsData = ref([
 ])
 
 // 项目分类
-const activeCategory = ref('national')
+const activeCategory = ref('all')
 
 
 const tabs = [
+  {label: '全部项目', name: 'all'},
   {label: '国家级项目', name: 'national'},
   {label: '省部级项目', name: 'provincial'},
   {label: '企业合作', name: 'enterprise'},
@@ -533,13 +537,26 @@ const tabs = [
 
 
 const filteredProjects = (category) => {
-  return projects.value
-    .filter(p => p.category === category)
-    .sort((a, b) => new Date(b.period.split('~')[0]) - new Date(a.period.split('~')[0]))
+  if (category === 'all') {
+    return newProjectsData.value
+      .sort((a, b) => new Date(b.startTime.replace('年', '-').replace('月', '')) -
+                       new Date(a.startTime.replace('年', '-').replace('月', '')))
+  }
+
+  if (category === 'collaboration') {
+    return newProjectsData.value
+      .filter(p => p.role === '参与')
+      .sort((a, b) => new Date(b.startTime.replace('年', '-').replace('月', '')) -
+                       new Date(a.startTime.replace('年', '-').replace('月', '')))
+  }
+
+  return newProjectsData.value
+    .filter(p => p.category === category && p.role === '主持')
+    .sort((a, b) => new Date(b.startTime.replace('年', '-').replace('月', '')) -
+                     new Date(a.startTime.replace('年', '-').replace('月', '')))
 }
 
-const getStartYear = (period) => period.split('-')[0]
-const getStatusType = (status) => status === '进行中' ? 'success' : 'info'
+const getStatusType = (status) => status === 'ongoing' ? 'success' : 'info'
 
 // 新增菜单选择处理
 const handleSelect = (key) => {
@@ -550,12 +567,18 @@ const handleSelect = (key) => {
 <style lang="scss" scoped>
 .projects-container {
   width: 80%;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
 
   .category-menu {
     border-bottom: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 
     // 菜单项样式
-    ::v-deep .el-menu-item {
+    :deep(.el-menu-item) {
       font-size: 16px;
       height: 50px;
       line-height: 50px;
@@ -577,12 +600,18 @@ const handleSelect = (key) => {
 
   .project-list {
     display: grid;
-    gap: 16px;
+    gap: 24px;
     padding: 16px 0;
   }
 
   .project-item {
     transition: transform 0.3s;
+    min-height: 200px;
+    padding: 8px;
+
+    :deep(.el-card__body) {
+      padding: 20px;
+    }
 
     &:hover {
       transform: translateY(-2px);
@@ -592,16 +621,57 @@ const handleSelect = (key) => {
   .project-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+    align-items: flex-start;
+    margin-bottom: 20px;
   }
 
   .project-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     color: #606266;
-    font-size: 0.9em;
+    font-size: 1.1em;
+    margin-top: 24px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    flex: 1;
+    min-width: 200px;
+    
+    .el-icon {
+      color: #409EFF;
+      flex-shrink: 0;
+    }
+  }
+
+  .project-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #303133;
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+    margin-right: 15px;
+  }
+
+  .status-tag {
+    font-size: 12px;
+    padding: 0 10px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 12px;
+    flex-shrink: 0;
   }
 
   .project-description {
