@@ -12,6 +12,9 @@ import CulturalTourismLab from "@/views/CulturalTourismLab.vue";
 import AICComputingLab from "@/views/AICComputingLab.vue";
 import StandardizationCommittee from "@/views/StandardizationCommittee.vue";
 import AIExplorerAlliance from "@/views/AIExplorerAlliance.vue";
+import AcademicCommittee from '@/views/AcademicCommittee.vue';
+import CurrentLeaders from "@/views/CurrentLeaders.vue";
+import ContactUs from "@/views/ContactUs.vue";
 
 const routes = [
   {
@@ -68,6 +71,18 @@ const routes = [
       {
         path: '/ai-club',
         component: AIExplorerAlliance
+      },
+      {
+        path: '/academic-committee',
+        component: AcademicCommittee
+      },
+      {
+        path: '/leadership',
+        component: CurrentLeaders
+      },
+      {
+        path: '/contact',
+        component: ContactUs
       }
     ]
   },
