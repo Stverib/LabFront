@@ -8,6 +8,8 @@ import testVue from "@/views/testVue.vue"
 import AnnouncementDetail from "@/views/AnnouncementDetail.vue";
 import NewsDetail from "@/views/NewsDetail.vue";
 import ActivityDetail from "@/views/AcademicActivityDetail.vue";
+import CulturalTourismLab from "@/views/CulturalTourismLab.vue";
+import AICComputingLab from "@/views/AICComputingLab.vue";
 
 const routes = [
   {
@@ -48,6 +50,14 @@ const routes = [
         path: '/AcademicActivity/:id',
         component: ActivityDetail,
         props: true
+      },
+      {
+        path: '/lab-structure/cultural-tourism',
+        component: CulturalTourismLab,
+      },
+      {
+        path: '/lab-structure/ai-computing',
+        component: AICComputingLab,
       }
     ]
   },

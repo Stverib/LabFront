@@ -44,8 +44,10 @@
                 type="info"
                 class="content-link"
                 @click.prevent="router.push(`/AcademicActivity/${item.id}`)">
-                <div class="content">{{ truncateContent(item.content, 50) }}</div>
-                <div class="date">{{ item.date }}</div>
+                <div class="activity-content">
+                  <div class="activity-title">{{ truncateContent(item.title, 50) }}</div>
+                  <div class="activity-date">{{ item.date }}</div>
+                </div>
               </el-link>
             </div>
           </el-card>
@@ -299,6 +301,45 @@ const getGradient = (id) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+/* 修改活动项样式 */
+.activity-content {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  width: 100%;
+}
+
+.activity-title {
+  flex: 1;
+  padding-right: 40px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activity-date {
+
+  color: #909399;
+  font-size: 0.9em;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+/* 调整移动端样式 */
+@media (max-width: 768px) {
+  .activity-content {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .activity-date {
+    margin-top: 0;
+    margin-left: auto;
+    font-size: 0.8em;
   }
 }
 </style>

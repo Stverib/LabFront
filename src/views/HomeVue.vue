@@ -1,61 +1,74 @@
 <template>
   <div class="lab-website-container">
     <!-- 导航栏 -->
-    <el-header class="main-header">
-      <el-row
-        class="header-content"
-        type="flex"
-        align="middle"
-        justify="space-between"
-      >
-        <!-- 品牌LOGO区域 -->
-        <el-col :span="4">
-          <div class="brand">
-            <img
-              src="@/assets/images/LZU.png"
-              alt="实验室Logo"
-              class="logo"
-            />
-            <div class="lab-titles">
-              <h1 class="cn-name">前沿技术研究实验室</h1>
-              <h2 class="en-name">Advanced Technology Research Laboratory</h2>
+    <el-affix :offset="0">
+      <el-header class="main-header">
+        <el-row
+          class="header-content"
+          type="flex"
+          align="middle"
+          justify="space-between"
+        >
+          <!-- 品牌LOGO区域 -->
+          <el-col :span="4">
+            <div class="brand">
+              <img
+                src="@/assets/images/LZU.png"
+                alt="实验室Logo"
+                class="logo"
+              />
+              <div class="lab-titles">
+                <h1 class="cn-name">前沿技术研究实验室</h1>
+                <h2 class="en-name">Advanced Technology Research Laboratory</h2>
+              </div>
             </div>
-          </div>
-        </el-col>
-        <!-- 导航菜单 -->
-        <el-col :span="20">
-          <el-row
-            tag="nav"
-            class="nav-menu"
-            type="flex"
-            justify="end"
-            :gutter="20"
-          >
-            <el-col
-              v-for="item in navItems"
-              :key="item.path"
-              :span="2"
-              class="nav-item-col"
+          </el-col>
+          <!-- 导航菜单 -->
+          <el-col :span="20">
+            <el-menu
+              :default-active="activeMenu"
+              mode="horizontal"
+              :router="true"
+              class="nav-menu right-aligned-menu"
+              @select="handleSelect"
             >
-              <router-link
-                :to="item.path"
-                class="nav-item"
-                :class="{ 'is-active': activeMenu === item.path }"
-              >
-                {{ item.title }}
-              </router-link>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
-    </el-header>
+              <!-- 首页 -->
+              <el-menu-item index="/">首页</el-menu-item>
+
+              <!-- 实验室介绍（带子菜单） -->
+              <el-sub-menu index="lab-intro">
+                <template #title>实验室介绍</template>
+
+                <el-sub-menu index="lab-structure">
+                  <template #title>实验室结构</template>
+                  <el-menu-item index="/lab-structure/cultural-tourism">文旅重点实验室</el-menu-item>
+                  <el-menu-item index="/lab-structure/ai-computing">人工智能与算力技术重点实验室</el-menu-item>
+                </el-sub-menu>
+
+                <el-menu-item index="/committee">标委会</el-menu-item>
+                <el-menu-item index="/ai-club">AI探索者联盟社团</el-menu-item>
+                <el-menu-item index="/academic-committee">学术委员会</el-menu-item>
+                <el-menu-item index="/leadership">现任领导</el-menu-item>
+                <el-menu-item index="/contact">联系我们</el-menu-item>
+              </el-sub-menu>
+
+              <!-- 其他菜单项 -->
+              <el-menu-item index="/org-structure">机构设置</el-menu-item>
+              <el-menu-item index="/people">团队成员</el-menu-item>
+              <el-menu-item index="/projects">项目研究</el-menu-item>
+            </el-menu>
+          </el-col>
+        </el-row>
+      </el-header>
+    </el-affix>
+
 
     <!-- 主内容区 -->
     <el-main class="main-content">
-<!--      <router-view/>-->
+      <!--      <router-view/>-->
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
-          <component :is="Component" />
+          <component :is="Component"/>
         </transition>
       </router-view>
     </el-main>
@@ -64,7 +77,7 @@
     <el-footer class="main-footer">
       <div class="footer-content">
         <div class="copyright-info">
-          <p>电话：0931-8912778       地址：兰州市城关区天水南路222号       邮编：730000</p>
+          <p>电话：0931-8912778 地址：兰州市城关区天水南路222号 邮编：730000</p>
           <p>copyright@2025 兰州大学信息科学与工程学院 All rights reserved</p>
         </div>
       </div>
@@ -84,13 +97,17 @@ import {useRoute} from 'vue-router'
 const route = useRoute()
 const activeMenu = ref(route.path)
 
-const navItems = ref([
+/*const navItems = ref([
   {path: '/', title: '首页'},
   {path: '/#', title: '实验室介绍'},
   {path: '/#', title: '机构设置'},
   {path: '/people', title: '团队成员'},
   {path: '/projects', title: '项目研究'},
-])
+])*/
+
+const handleSelect = (index) => {
+  activeMenu.value = index
+}
 
 </script>
 
@@ -112,7 +129,7 @@ const navItems = ref([
 
     .header-content {
       width: auto;
-      margin-top: 10px;
+      margin-top: 0;
       margin-bottom: 10px;
       padding: 0 20px;
     }
@@ -122,6 +139,8 @@ const navItems = ref([
       align-items: center;
       gap: 12px;
       height: auto;
+      width: 100%;
+      justify-content: flex-start;
 
       .logo {
         width: 100px;
@@ -149,32 +168,32 @@ const navItems = ref([
     }
 
     .nav-menu {
-      gap: 20px;
-      flex-wrap: nowrap;
+      border-bottom: none !important;
+      height: 60px;
+      background: transparent !important;
 
-      .nav-item-col {
-        display: flex;
-        flex: 0 0 auto;
+      :deep(.el-sub-menu__title),
+      :deep(.el-menu-item) {
+        height: 50px;
+        line-height: 50px;
+        color: #606266;
+        font-size: 1rem;
+        transition: all 0.3s;
 
-        &:last-child {
-          margin-right: 15px;
+        &:hover {
+          color: #1a3a6d !important;
+          background: #f5f7fa !important;
         }
       }
 
-      .nav-item {
-        color: #606266;
-        text-decoration: none !important;
-        font-size: 1rem;
-        padding: 8px 12px;
-        transition: all 0.3s;
-        border-radius: 4px;
-        white-space: nowrap;
-        display: inline-block;
+      :deep(.is-active) {
+        color: #1a3a6d !important;
+        border-bottom: 2px solid #1a3a6d;
+      }
 
-        &:hover,
-        &.is-active {
-          color: #1a3a6d;
-          background: #f5f7fa;
+      :deep(.el-sub-menu) {
+        &.is-active .el-sub-menu__title {
+          color: #1a3a6d !important;
         }
       }
     }
@@ -335,5 +354,53 @@ const navItems = ref([
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
+}
+
+/* 新增右对齐样式 */
+.right-aligned-menu {
+  display: flex;
+  justify-content: flex-end;
+
+  :deep(.el-sub-menu) {
+    .el-sub-menu__title {
+      padding: 0 20px;
+    }
+
+    .el-menu {
+      left: auto !important;
+      right: 0;
+    }
+  }
+
+  :deep(.el-menu-item) {
+    padding: 0 20px;
+  }
+
+  :deep(.el-menu--horizontal) {
+    border-bottom: none;
+  }
+}
+
+/* 调整子菜单箭头位置 */
+:deep(.el-sub-menu__title) {
+  padding-right: 30px !important;
+  position: relative;
+}
+
+:deep(.el-sub-menu [class^=el-icon]) {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 0 !important;
+}
+
+/* 调整菜单项间距 */
+:deep(.el-menu-item) {
+  padding: 0 25px !important;
+}
+
+:deep(.el-sub-menu) {
+  margin-left: 10px;
 }
 </style>
